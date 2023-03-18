@@ -1,6 +1,7 @@
 from playhouse.shortcuts import model_to_dict
 
 from data.config import ADMINS
+from handlers.users import users
 from .models import *
 
 
@@ -19,3 +20,4 @@ async def get_users_id():
     with db:
         users = [model_to_dict(item) for item in Users.select(Users.user_id)]
         return users
+

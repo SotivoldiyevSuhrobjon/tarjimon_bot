@@ -13,3 +13,9 @@ DB_HOST = env.str("DB_HOST")
 DB_PORT = env.str("DB_PORT")
 POSTGRESQL_URL = f'postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}'
 
+
+CHANNELS = [
+    ["1 - kanal", "-1001496629342", "https://t.me/+2tfcGDkrmCk4ZWRi"],
+]
+
+
