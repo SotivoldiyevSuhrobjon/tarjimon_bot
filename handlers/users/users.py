@@ -1,3 +1,5 @@
+from tabnanny import check
+
 from aiogram import Dispatcher
 from aiogram.types import *
 
@@ -17,7 +19,7 @@ async def bot_start(message: Message):
     check = await check_sub_channels(message)
     if check:
         btn = await show_channels()
-        await message.answer(f"Assalomu aleykum", reply_markup=btn)
+        await message.answer(f"Assalomu aleykum")
     else:
         btn = await show_channels()
         msg = f"Hurmatli <b>{message.from_user.full_name}</b>\n" \
@@ -26,25 +28,12 @@ async def bot_start(message: Message):
 
 
 async def check_subscription(call: CallbackQuery):
+
     check = await check_sub_channels(call)
     if check:
         await call.message.edit_text("Siz hamma kanallarga obuna bo'lgansiz\nBotdan foydalanishingiz mumkin !")
     else:
         await call.answer("Berilgan kanallarga obuna bo'ling !", show_alert=True)
-
-
-async def help_bot(message: Message):
-    await message.answer("Bu botda siz:\n\n"
-                         "3 xil tilda 🌐 yozgan so'zingizni tarjima\n"
-                         "qilib beradi ✅ va bu botda adminlar uchun"
-                         "alohida panel mavjud ✅ unda admin,\n"
-                         "bot userlariga malomot yuborishi\n"
-                         "mumkin ✅ lekin adminladan boshqalariga\n"
-                         "esa /admin commandasi ishlamaydi\n"
-                         "Bot setlari:\n"
-                         "                   /start\n"
-                         "                   /admin\n"
-                         "                   /help")
 
 
 async def get_user_text_handler(message: Message):
@@ -60,6 +49,14 @@ async def get_user_text_handler(message: Message):
         await message.answer(msg, reply_markup=btn)
 
 
+async def check_subscription(call: CallbackQuery):
+    check = await check_sub_channels(call)
+    if check:
+        await call.message.edit_text("azo bolgansiz")
+    else:
+        await call.answer("Berilgan kanallarga obuna boling", show_alert=True)
+
+
 async def select_lang_callback(call: CallbackQuery):
     await call.answer()
     lang = call.data.split(":")[-1]
@@ -72,7 +69,6 @@ async def select_lang_callback(call: CallbackQuery):
 
 def register_users_py(dp: Dispatcher):
     dp.register_message_handler(bot_start, commands=['start'])
-    dp.register_message_handler(help_bot, commands=['help'])
     dp.register_callback_query_handler(check_subscription, text='sub_channels_bot')
     dp.register_message_handler(get_user_text_handler, content_types=['text'])
 
